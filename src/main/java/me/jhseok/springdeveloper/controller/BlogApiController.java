@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.jhseok.springdeveloper.dao.Article;
 import me.jhseok.springdeveloper.dto.ArticleCreationRequest;
 import me.jhseok.springdeveloper.dto.ArticleResponse;
+import me.jhseok.springdeveloper.repository.BlogRepository;
 import me.jhseok.springdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 public class BlogApiController {
     private final BlogService blogService;
+    private final BlogRepository blogRepository;
 
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody ArticleCreationRequest request) {
@@ -37,5 +39,11 @@ public class BlogApiController {
     public ResponseEntity<ArticleResponse> getArticleByID(@PathVariable Long id){
         Article article = blogService.findbyid(id);
         return  ResponseEntity.ok(new ArticleResponse(article));
+    }
+
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
