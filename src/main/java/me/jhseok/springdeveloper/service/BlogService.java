@@ -6,6 +6,8 @@ import me.jhseok.springdeveloper.dto.ArticleCreationRequest;
 import me.jhseok.springdeveloper.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class BlogService {
@@ -13,5 +15,12 @@ public class BlogService {
 
     public Article save(ArticleCreationRequest request) {
         return blogRepository.save(request.toEntity());
+    }
+
+    public List<Article> findAll(){
+        return blogRepository.findAll();
+    }
+    public Article findbyid(long id){
+        return blogRepository.findById(id).orElse(null);
     }
 }
