@@ -1,6 +1,7 @@
 
 package me.jhseok.springdeveloper.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.jhseok.springdeveloper.dao.Article;
 import me.jhseok.springdeveloper.dto.ArticleCreationRequest;
@@ -31,12 +32,24 @@ public class BlogService {
         blogRepository.deleteById(id);
     }
 
-    public Article updateArticle(Long id, ArticleUpdateRequest request) {
+//
+//    public Article updateArticle(Long id, ArticleUpdateRequest req) {
+//        Article article = blogRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+//
+//        article.update(req.getTitle(), req.getContent());
+//
+//        return blogRepository.save(article);
+//    }
+
+    @Transactional
+    public Article updateArticle(Long id, ArticleUpdateRequest req) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
 
-        article.update(request.getTitle(), request.getContent());
+        article.update(req.getTitle(), req.getContent());
 
-        return blogRepository.save(article);
+        return article;
     }
+
 }
