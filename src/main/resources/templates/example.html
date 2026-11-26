@@ -34,12 +34,14 @@
         <li th:each="hobby : *{hobbies}">
             <span th:text="${hobby}">운동</span>
             <span th:if="${hobby == '운동'}">(대표취미)</span>
+            <sapn th:if="${hobby != '운동'}">(일반취미^^)</sapn>
         </li>
     </ul>
+    <a th:href="@{/api/articles/{id}(id=${person.blogId})}">글보기</a>
 </div>
 
 
 <!--<a href="/api/articles">글보기</a>-->
-    <a th:href="@{/api/articles/{id}(id=${person.blogId})}">글보기</a>
+
 </body>
 </html>
